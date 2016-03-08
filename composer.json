@@ -1,0 +1,32 @@
+{
+  "name": "cethyworks/swagger-tools-bundle",
+  "description": "Doctrine entities, controllers & access-control file generators based on Swagger documents.",
+  "type": "symfony-bundle",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Cethy/swagger-bundle"
+    }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "sensio/generator-bundle": "~3.0",
+    "kleijnweb/swagger-bundle": "dev-add-optionalparameters",
+    "symfony/console": "^2.8",
+    "symfony/http-kernel": "^2.8",
+    "symfony/routing": "^2.8",
+    "symfony/dependency-injection": "^2.8",
+    "symfony/config": "^2.8",
+    "doctrine/common": "^2.4"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cethy",
+      "email": "cethy.hnc@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "Cethyworks\\SwaggerToolsBundle\\": "src" }
+  }
+}

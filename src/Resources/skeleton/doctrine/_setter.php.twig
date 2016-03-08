@@ -1,0 +1,31 @@
+{% if property.readOnly is defined and property.readOnly == 'true' %}{% else %}
+{% if property.type == 'object' %}
+{% include 'doctrine/method/_setter_object.php.twig' with {
+    paramType: property.id|split('/')|last,
+    methodName: name,
+    attributeName: name
+} %}
+
+{% elseif property.type == 'string' and property.format is defined and property.format in ['date', 'date-time'] %}
+{% include 'doctrine/method/_setter.php.twig' with {
+    paramType: '\\DateTime',
+    methodName: name,
+    attributeName: name
+} %}
+
+{% elseif property.type == 'number' %}
+{% include 'doctrine/method/_setter.php.twig' with {
+    paramType: 'float',
+    methodName: name,
+    attributeName: name
+} %}
+
+{% else %}
+{% include 'doctrine/method/_setter.php.twig' with {
+    paramType: property.type,
+    methodName: name,
+    attributeName: name
+} %}
+
+{% endif %}
+{% endif %}

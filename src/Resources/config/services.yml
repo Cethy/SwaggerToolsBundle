@@ -1,0 +1,29 @@
+services:
+  # Generators
+  swagger.tools.doctrine_entity.generator:
+    class: Cethyworks\SwaggerToolsBundle\Generator\EntityGenerator
+
+  swagger.tools.access_control.generator:
+    class: Cethyworks\SwaggerToolsBundle\Generator\AccessControlGenerator
+
+  swagger.tools.controller.generator:
+    class: Cethyworks\SwaggerToolsBundle\Generator\ControllerGenerator
+
+  # Commands
+  swagger.tools.command.generate_doctrine_entities:
+    class: Cethyworks\SwaggerToolsBundle\Command\GenerateDoctrineEntityCommand
+    arguments: ['@swagger.document.repository', '@swagger.tools.doctrine_entity.generator']
+    tags:
+        -  { name: console.command }
+
+  swagger.tools.command.generate_access_control:
+    class: Cethyworks\SwaggerToolsBundle\Command\GenerateAccessControlCommand
+    arguments: ['@swagger.document.repository', '@swagger.tools.access_control.generator']
+    tags:
+        -  { name: console.command }
+
+  swagger.tools.command.generate_controller:
+    class: Cethyworks\SwaggerToolsBundle\Command\GenerateControllerCommand
+    arguments: ['@swagger.document.repository', '@swagger.tools.controller.generator', '%swagger.document.base_path%']
+    tags:
+        -  { name: console.command }

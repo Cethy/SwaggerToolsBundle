@@ -1,0 +1,29 @@
+{% if property.type == 'object' %}
+{% include 'doctrine/method/_getter.php.twig' with {
+    returnType: property.id|split('/')|last,
+    methodName: name,
+    attributeName: name
+} %}
+
+{% elseif property.type == 'string' and property.format is defined and property.format in ['date', 'date-time'] %}
+{% include 'doctrine/method/_getter.php.twig' with {
+    returnType: '\\DateTime',
+    methodName: name,
+    attributeName: name
+} %}
+
+{% elseif property.type == 'number' %}
+{% include 'doctrine/method/_getter.php.twig' with {
+    returnType: 'float',
+    methodName: name,
+    attributeName: name
+} %}
+
+{% else %}
+{% include 'doctrine/method/_getter.php.twig' with {
+    returnType: property.type,
+    methodName: name,
+    attributeName: name
+} %}
+
+{% endif %}

@@ -1,0 +1,68 @@
+{#
+Supports :
+- required
+- minLength/maxLength
+- minimum/maximum
+- minItems/maxItems
+- enum
+- type
+- pattern
+- format{date*,date-time*,email,uuid,url, custom*}
+
+Note on format :
+Swagger allow any string as format's value, then we can add our custom Constraints like this example :
+format: "AppBundle\Validator\Constraints\MyCustomConstraint"
+
+*Unsupported* (use custom format constraint) :
+- multipleOf
+- exclusiveMinimum/exclusiveMaximum
+- uniqueItems
+- minProperties/maxProperties
+#}
+{# required #}
+{% if property.required is defined and property.required == 'true' %}
+     * @Assert\NotBlank()
+{% endif %}
+{# minLength/maxLength #}
+{% if property.minLength is defined or property.maxLength is defined %}
+     * @Assert\Length({% spaceless %}
+{% if property.minLength is defined %}min="{{ property.minLength }}"{% endif %}
+{% if property.minLength is defined and property.maxLength is defined %}, {% endif %}
+{% if property.maxLength is defined %}max="{{ property.maxLength }}"{% endif %}{% endspaceless %})
+{% endif %}
+{# minimum/maximum #}
+{% if property.minimum is defined or property.maximum is defined %}
+     * @Assert\Range({% spaceless %}
+{% if property.minimum is defined %}min="{{ property.minimum }}"{% endif %}
+{% if property.minimum is defined and property.maximum is defined %}, {% endif %}
+{% if property.maximum is defined %}max="{{ property.maximum }}"{% endif %}{% endspaceless %})
+{% endif %}
+{# minItems/maxItems #}
+{% if property.minItems is defined or property.maxItems is defined %}
+     * @Assert\Count({% spaceless %}
+{% if property.minItems is defined %}min="{{ property.minItems }}"{% endif %}
+{% if property.minItems is defined and property.maxItems is defined %}, {% endif %}
+{% if property.maxItems is defined %}max="{{ property.maxItems }}"{% endif %}{% endspaceless %})
+{% endif %}
+{# enum #}
+{% if property.enum is defined %}
+     * @Assert\Choice(choices={{'{'}}{% for choice in property.enum %}"{{ choice }}"{% if not loop.last %},{% endif %}{% endfor %}{{'}'}})
+{% endif %}
+{# type #}
+{% if property.type is defined %}
+     * @Assert\Type(type={{ property.type }})
+{% endif %}
+{# pattern #}
+{% if property.pattern is defined %}
+     * @Assert\Regex(pattern={{ property.pattern }})
+{% endif %}
+{# format #}
+{% if property.format is defined %}
+{% if property.format in ['date', 'email', 'uuid', 'url'] %}
+     * @Assert\{{ property.format|capitalize }}()
+{% elseif property.format == 'date-time' %}
+     * @Assert\DateTime()
+{% else %}
+     * @{{ property.format }}()
+{% endif %}
+{% endif %}
