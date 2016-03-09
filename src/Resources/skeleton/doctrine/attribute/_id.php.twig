@@ -1,18 +1,10 @@
     /**
-{% if property.type == 'integer' %}
-     * @var integer
-     * @Type("integer")
+     * @var guid
+     * @Type("guid")
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-{% elseif name == 'id' %}
-     * @var {{ property.type }}
-     * @Type("{{ property.type }}")
-     *
-     * @ORM\Column(name="id", type="{{ property.type }}")
-     * @ORM\Id
-{% endif %}
+     * @ORM\GeneratedValue(strategy="UUID")
      *
 {% include 'doctrine/_asserts.php.twig' %}
      */

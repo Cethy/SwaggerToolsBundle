@@ -24,6 +24,10 @@ This command auto-generate doctrine entities based on Swagger file resource defi
 
 The resulting entities contains the right `@ORM\` & `@Assert\` (@see Supported Swagger Properties below).
 
+#### Id
+
+The id attribute is forced to a guid format & UUID strategy.
+
 #### Relations
 
 Since the Swagger specification don't give us the possibility to describe the entity relation (and it's not its work), you can provide a additional yml document path (starting from the swagger document directory) in order to do that. This is the format :
