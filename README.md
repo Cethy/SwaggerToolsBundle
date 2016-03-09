@@ -75,9 +75,11 @@ Swagger allow any string as format's value, Use it to add your custom Constraint
 
 example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 
+### Todo
+- Update composer.json when kleijnweb/swagger-bundle PR is accepted 
 
 ### License
 MIT License
 
 ### Inspiration
-[KleijnWeb\SwaggerBundle](https://github.com/kleijnweb/swagger-bundle) & [KleijnWeb\SwaggerBundleTool](https://github.com/kleijnweb/swagger-bundle-tools)
+[KleijnWeb\SwaggerBundle](https://github.com/kleijnweb/swagger-bundle) & [KleijnWeb\SwaggerBundleTools](https://github.com/kleijnweb/swagger-bundle-tools)
