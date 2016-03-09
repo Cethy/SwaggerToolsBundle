@@ -50,11 +50,11 @@ format: "AppBundle\Validator\Constraints\MyCustomConstraint"
 {% endif %}
 {# type #}
 {% if property.type is defined %}
-     * @Assert\Type(type={{ property.type }})
+     * @Assert\Type(type="{{ property.type }}")
 {% endif %}
 {# pattern #}
 {% if property.pattern is defined %}
-     * @Assert\Regex(pattern={{ property.pattern }})
+     * @Assert\Regex(pattern="{{ property.pattern }}")
 {% endif %}
 {# format #}
 {% if property.format is defined %}
