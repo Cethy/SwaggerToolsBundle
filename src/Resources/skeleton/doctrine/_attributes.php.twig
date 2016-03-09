@@ -3,16 +3,6 @@
 {%- if name == 'id' -%}
 {% include 'doctrine/attribute/_id.php.twig' %}
 
-{% elseif property.type == 'object' %}
-{% set typeName = property.id|split('/')|last %}
-{% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
-{% include 'doctrine/attribute/_object.php.twig' with { property: property,
-    type:    typeName,
-    fqType:  fqTypeName,
-    ormName: name,
-    ormType: fqTypeName
-} %}
-
 {% elseif property.type == 'string' and property.format is defined and property.format == 'date' %}
 {% include 'doctrine/attribute/_attribute.php.twig' with { property: property,
     type:    '\\DateTime',
@@ -37,14 +27,25 @@
     ormType: 'float'
 } %}
 
-{% elseif property.type == 'array' and property.items is defined and property.items.type == 'object' %}
- {% set typeName = property.items.id|split('/')|last %}
- {% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
-{% include 'doctrine/attribute/_attribute.php.twig' with { property: property,
-    type:    typeName~ '[]',
-    fqType:  'array<'~ fqTypeName ~'>',
+{% elseif property.type == 'object' %}
+{% set typeName = property.id|split('/')|last %}
+{% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
+{% include 'doctrine/attribute/_object.php.twig' with { property: property,
+    type:    typeName,
+    fqType:  fqTypeName,
     ormName: name,
-    ormType: 'array'
+    ormType: fqTypeName,
+    ormInversedBy: (property.relation is defined and property.relation.inversedBy is defined ? property.relation.inversedBy : '')
+} %}
+
+{% elseif property.type == 'array' and property.items is defined and property.items.type == 'object' %}
+{% set typeName = property.items.id|split('/')|last %}
+{% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
+{% include 'doctrine/attribute/_collection.php.twig' with { property: property,
+    type:        typeName ~'[]',
+    fqType:      'array<'~ fqTypeName ~'>',
+    ormName:     fqTypeName,
+    ormMappedBy: (property.relation is defined ? property.relation.mappedBy : '')
 } %}
 
 {% else %}

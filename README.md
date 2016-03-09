@@ -24,6 +24,28 @@ This command auto-generate doctrine entities based on Swagger file resource defi
 
 The resulting entities contains the right `@ORM\` & `@Assert\` (@see Supported Swagger Properties below).
 
+#### Relations
+
+Since the Swagger specification don't give us the possibility to describe the entity relation (and it's not its work), you can provide a additional yml document path (starting from the swagger document directory) in order to do that. This is the format :
+
+```yml
+entities:
+  Foo: ~ <- no relations
+  Fool: ~
+  Bar:
+    foo: many2one <- Bar many2one unidirectional Foo
+    baz: <- Bar many2one bidirectional Baz
+      type: many2one
+      inversedBy: bars
+  Baz:
+    bars: <- Baz one2many bidirectional Bar
+      type: one2many
+      mappedBy: baz
+```
+
+Currently, the generator care only about the `inversedBy` & `mappedBy` keys, and **does not handle many2many relations**.
+
+
 See `swagger:generate:entities --help` for more details.
 
 
@@ -77,6 +99,7 @@ example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 
 ### Todo
 - Update composer.json when kleijnweb/swagger-bundle PR is accepted 
+- Handle many2many relations
 
 ### License
 MIT License

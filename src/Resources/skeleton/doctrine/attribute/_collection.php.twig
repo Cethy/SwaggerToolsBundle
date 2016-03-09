@@ -3,7 +3,7 @@
      * @var {{ type }}
      * @Type("{{ fqType }}")
      *
-     * @ORM\ManyToOne(targetEntity="{{ ormType }}"{% if ormInversedBy != '' %}, inversedBy="{{ ormInversedBy }}"{% endif %})
+     * @ORM\OneToMany(targetEntity="{{ ormName }}", mappedBy="{{ ormMappedBy }}", cascade={"persist", "remove"}, orphanRemoval=true)
      *
 {% include 'doctrine/_asserts.php.twig' %}
      */

@@ -12,7 +12,7 @@ services:
   # Commands
   swagger.tools.command.generate_doctrine_entities:
     class: Cethyworks\SwaggerToolsBundle\Command\GenerateDoctrineEntityCommand
-    arguments: ['@swagger.document.repository', '@swagger.tools.doctrine_entity.generator']
+    arguments: ['@swagger.document.repository', '@swagger.tools.doctrine_entity.generator', '%swagger.document.base_path%']
     tags:
         -  { name: console.command }
 
