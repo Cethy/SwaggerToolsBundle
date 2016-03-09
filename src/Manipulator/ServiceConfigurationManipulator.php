@@ -94,9 +94,15 @@ EOF
     private function findLastImportedPath($yamlContents)
     {
         $data = Yaml::parse($yamlContents);
-        if (!isset($data['services'])) {
+
+        if (!array_key_exists('services', $data)) {
             return false;
         }
+
+        if (!isset($data['services'])) {
+            return 'services:';
+        }
+
         // find the last imports entry
         $lastImport = end($data['services']);
         return end($lastImport);
