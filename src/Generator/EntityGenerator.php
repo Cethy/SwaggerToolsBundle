@@ -43,18 +43,26 @@ class EntityGenerator extends BaseGenerator
             if(in_array($typeName, $definitionsExcluded)) {
                 continue;
             }
-            // to array
-            $spec = json_decode(json_encode($spec), true);
 
             $resourceFile = sprintf('%s/%s/%s.php', $dir, $this->innerPath, $typeName);
             if (!$force && file_exists($resourceFile)) {
                 throw new \RuntimeException(sprintf('Entity "%s" already exists', $typeName));
             }
 
+            // normalize stdClass $spec into array for twig to be able to use
+            $properties = array();
+            foreach($spec->properties as $property => $data) {
+                $properties[$property] = $data;
+            }
+
             $this->renderFile(
                 $this->template,
                 $resourceFile,
-                array_merge($parameters, $spec, ['entityName' => $typeName])
+                array_merge(
+                    $parameters, [
+                    'properties' => $properties,
+                    'entityName' => $typeName
+                ])
             );
         }
     }
