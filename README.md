@@ -102,9 +102,14 @@ Swagger allow any string as format's value, Use it to add your custom Constraint
 example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 
 ### Todo
-- Update composer.json when kleijnweb/swagger-bundle PR is accepted 
+- Handle one2one relations
 - Handle many2many relations
 - Handle some basic behavior (timestampable)
+- Add `Request $request` on put/post&delete (or detect if paramType body)
+- exclude.yml file
+- -f/--force instead of -f=true
+- handle [Swagger inheritance](https://github.com/OAI/OpenAPI-Specification/blob/master/fixtures/v2.0/json/models/modelWithComposition.json) with allOf
+
 
 ### License
 MIT License
