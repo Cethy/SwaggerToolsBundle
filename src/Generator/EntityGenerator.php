@@ -52,10 +52,11 @@ class EntityGenerator extends BaseGenerator
 
             // normalize stdClass $spec into array for twig to be able to use
             $properties = array();
-            foreach($spec->properties as $property => $data) {
-                $properties[$property] = $data;
+            if(isset($spec->properties)) {
+                foreach($spec->properties as $property => $data) {
+                    $properties[$property] = $data;
+                }
             }
-
             // merge $relationDocument
             if($relationDocument) {
                 foreach($relationDocument['entities'] as $entityName => $relations) {

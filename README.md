@@ -104,6 +104,7 @@ example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 ### Todo
 - Update composer.json when kleijnweb/swagger-bundle PR is accepted 
 - Handle many2many relations
+- Handle some basic behavior (timestampable)
 
 ### License
 MIT License
