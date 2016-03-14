@@ -1,7 +1,7 @@
 {% if property.readOnly is defined and property.readOnly == 'true' %}{% else %}
 {% if property.type == 'object' %}
 {% include 'doctrine/method/_setter_object.php.twig' with {
-    paramType: property.id|split('/')|last,
+    paramType: attribute(property, 'x-ref-id')|split('/')|last,
     methodName: name,
     attributeName: name
 } %}

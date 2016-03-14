@@ -1,6 +1,6 @@
 {% if property.type == 'object' %}
 {% include 'doctrine/method/_getter.php.twig' with {
-    returnType: property.id|split('/')|last,
+    returnType: attribute(property, 'x-ref-id')|split('/')|last,
     methodName: name,
     attributeName: name
 } %}

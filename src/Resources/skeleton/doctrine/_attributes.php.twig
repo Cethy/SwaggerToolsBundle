@@ -28,7 +28,7 @@
 } %}
 
 {% elseif property.type == 'object' %}
-{% set typeName = property.id|split('/')|last %}
+    {% set typeName = attribute(property, 'x-ref-id')|split('/')|last %}
 {% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
 {% include 'doctrine/attribute/_object.php.twig' with { property: property,
     type:    typeName,
@@ -39,7 +39,7 @@
 } %}
 
 {% elseif property.type == 'array' and property.items is defined and property.items.type == 'object' %}
-{% set typeName = property.items.id|split('/')|last %}
+{% set typeName = attribute(property.items, 'x-ref-id')|split('/')|last %}
 {% set fqTypeName = namespace ~ (entity_namespace ? '\\' ~ entity_namespace : '') ~ '\\' ~ typeName %}
 {% include 'doctrine/attribute/_collection.php.twig' with { property: property,
     type:        typeName ~'[]',
