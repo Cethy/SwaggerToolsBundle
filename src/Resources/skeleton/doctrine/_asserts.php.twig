@@ -48,21 +48,18 @@ format: "AppBundle\Validator\Constraints\MyCustomConstraint"
 {% if property.enum is defined %}
      * @Assert\Choice(choices={{'{'}}{% for choice in property.enum %}"{{ choice }}"{% if not loop.last %},{% endif %}{% endfor %}{{'}'}})
 {% endif %}
-{# type #}
-{% if property.type is defined %}
-     * @Assert\Type(type="{{ property.type }}")
-{% endif %}
 {# pattern #}
 {% if property.pattern is defined %}
      * @Assert\Regex(pattern="{{ property.pattern }}")
 {% endif %}
 {# format #}
-{% if property.format is defined %}
-{% if property.format in ['date', 'email', 'uuid', 'url'] %}
+{% if property.format is defined and property.format in ['date', 'email', 'uuid', 'url'] %}
      * @Assert\{{ property.format|capitalize }}()
-{% elseif property.format == 'date-time' %}
+{% elseif property.format is defined and property.format == 'date-time' %}
      * @Assert\DateTime()
-{% else %}
+{% elseif property.format is defined %}
      * @{{ property.format }}()
-{% endif %}
+{# type #}
+{% elseif property.type is defined %}
+    * @Assert\Type(type="{{ property.type }}")
 {% endif %}

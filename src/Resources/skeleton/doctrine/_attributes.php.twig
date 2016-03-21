@@ -14,7 +14,7 @@
 {% elseif property.type == 'string' and property.format is defined and property.format == 'date-time' %}
 {% include 'doctrine/attribute/_attribute.php.twig' with { property: property,
     type:    '\\DateTime',
-    fqType:  "DateTime<'Y-m-d\TH:i:sP'>",
+    fqType:  "DateTime<'Y-m-d\\TH:i:sP'>",
     ormName: name,
     ormType: 'datetime'
 } %}
