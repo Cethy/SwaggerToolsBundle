@@ -11,7 +11,7 @@
   "require": {
     "php": ">=5.4",
     "sensio/generator-bundle": "~3.0",
-    "kleijnweb/swagger-bundle": "dev-refresolver-recursive-depth",
+    "kleijnweb/swagger-bundle": "dev-serializerSupportMultipleNamespace",
     "symfony/console": "^2.8",
     "symfony/http-kernel": "^2.8",
     "symfony/routing": "^2.8",
