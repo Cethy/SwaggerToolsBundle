@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\Type;
  * Shape it to your needs.
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Cethyworks\CRUDCoreBundle\Entity\EntityRepository")
+ * @ORM\Entity({% if repositoryClass is defined and repositoryClass is not null %}repositoryClass="{{ repositoryClass }}"{% endif %})
 {% endblock phpdoc_class_header %}
  */
 {% block class_definition %}

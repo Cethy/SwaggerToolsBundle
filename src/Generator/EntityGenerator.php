@@ -68,9 +68,10 @@ class EntityGenerator extends BaseGenerator
                 $resourceFile,
                 array_merge(
                     $parameters, [
-                    'properties'  => $properties,
-                    'entityName'  => $typeName,
-                    'parentClass' => isset($spec->{'x-parent'}) ? $spec->{'x-parent'} : null
+                    'properties'      => $properties,
+                    'entityName'      => $typeName,
+                    'parentClass'     => isset($spec->{'x-parent'}) ? $spec->{'x-parent'} : null,
+                    'repositoryClass' => isset($spec->{'x-repository'}) ? $spec->{'x-repository'} : null
                 ])
             );
         }

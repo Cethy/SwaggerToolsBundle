@@ -107,8 +107,13 @@ example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 #### `x-parent`
 Custom swagger property providing the means to declare a parent class to the entity generated.
 
+#### `x-repository`
+Custom swagger property providing the means to declare a doctrine repository class to the entity generated.
+
 #### `x-exclude`
-The generator will ignore definitions with `x-exclude: false`.
+Custom swagger property ; The generator will ignore definitions with `x-exclude: false`.
+
+
 
 
 ### Todo
