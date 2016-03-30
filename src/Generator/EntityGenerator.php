@@ -57,7 +57,9 @@ class EntityGenerator extends BaseGenerator
                     $properties[$property] = $data;
 
                     // add required
-                    if(isset($spec->required) && in_array($property, $spec->required)) {
+                    if((isset($spec->required) && in_array($property, $spec->required))
+                        || (isset($spec->{'x-required'}) && in_array($property, $spec->{'x-required'})))
+                    {
                         $properties[$property]->required = true;
                     }
                 }

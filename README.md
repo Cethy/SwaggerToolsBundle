@@ -71,6 +71,7 @@ See `swagger:generate:access-control --help` for more details.
 ### Supported Swagger Properties
 - readOnly
 - required* (Assert)
+- x-required* (Assert)
 - minLength/maxLength (Assert)
 - minimum/maximum (Assert)
 - minItems/maxItems (Assert)
@@ -81,15 +82,20 @@ See `swagger:generate:access-control --help` for more details.
 - x-parent*
 - x-exclude*
 
-#### `required`
-Required is defined as an array & at the root level, eg :
+#### `required` & `x-required`
+`required` is used by the swagger validator in `KleijnWeb\SwaggerBundle\Test\ApiTestCase`, `x-required` is only used by the generator.
+
+Required properties are defined as an array & at the root level, eg :
 
 ```yml
 definitions:
   User:
     type: object
     required: ['firstName', 'lastName']
+    x-required: ['id']
     properties:
+      id:
+        type: string
       lastName:
         type: string
       firstName:

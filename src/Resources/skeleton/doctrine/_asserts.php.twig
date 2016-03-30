@@ -61,5 +61,5 @@ format: "AppBundle\Validator\Constraints\MyCustomConstraint"
      * @{{ property.format }}()
 {# type #}
 {% elseif property.type is defined %}
-    * @Assert\Type(type="{{ property.type }}")
+     * @Assert\Type(type="{{ property.type }}")
 {% endif %}

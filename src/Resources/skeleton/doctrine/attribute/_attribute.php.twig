@@ -3,7 +3,7 @@
      * @var {{ type }}
      * @Type("{{ fqType }}")
      *
-     * @ORM\Column(name="{{ ormName }}", type="{{ ormType }}"{% if property.required is not defined or property.required == 'false' %}, nullable=true{% endif %})
+     * @ORM\Column(name="{{ ormName }}", type="{{ ormType }}"{% if property.required is not defined or not property.required %}, nullable=true{% endif %})
      *
 {% include 'doctrine/_asserts.php.twig' %}
      */
