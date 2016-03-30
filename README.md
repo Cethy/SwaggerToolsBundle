@@ -17,7 +17,7 @@ $ composer require cethyworks-swagger-tools-bundle
 ### Doctrine Entities Generator
 
 ```sh
-$ app/console swagger:generate:entities swagger.yml HelloApiBundle [--exclude=]
+$ app/console swagger:generate:entities swagger.yml HelloApiBundle
 ```
 
 This command auto-generate doctrine entities based on Swagger file resource definitions.
@@ -79,7 +79,7 @@ See `swagger:generate:access-control --help` for more details.
 - pattern (Assert)
 - format{date\*,date-time\*,email,uuid,url, custom\*}* (Assert)
 - x-parent*
-
+- x-exclude*
 
 #### `required`
 Required is defined as an array & at the root level, eg :
@@ -106,6 +106,9 @@ example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
 
 #### `x-parent`
 Custom swagger property providing the means to declare a parent class to the entity generated.
+
+#### `x-exclude`
+The generator will ignore definitions with `x-exclude: false`.
 
 
 ### Todo

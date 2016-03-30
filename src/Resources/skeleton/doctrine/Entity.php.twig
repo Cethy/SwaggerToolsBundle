@@ -20,6 +20,7 @@ use JMS\Serializer\Annotation\Type;
  */
 {% block class_definition %}
 class {{ entityName }}{% if parentClass is defined and parentClass is not null %} extends {{ parentClass }}{% endif %}
+
 {% endblock class_definition %}
 {
 {% block class_body %}

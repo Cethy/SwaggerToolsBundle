@@ -30,7 +30,7 @@ class EntityGenerator extends BaseGenerator
      * @param array           $definitionsExcluded
      * @param bool            $force
      */
-    public function generate(BundleInterface $bundle, SwaggerDocument $document, $definitionsExcluded = array(), $force = false)
+    public function generate(BundleInterface $bundle, SwaggerDocument $document, $force = false)
     {
         $dir = $bundle->getPath();
 
@@ -41,7 +41,7 @@ class EntityGenerator extends BaseGenerator
         ];
 
         foreach ($document->getDefinition()->definitions as $typeName => $spec) {
-            if(in_array($typeName, $definitionsExcluded)) {
+            if(isset($spec->{'x-exclude'}) && $spec->{'x-exclude'}) {
                 continue;
             }
 
