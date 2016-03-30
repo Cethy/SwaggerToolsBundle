@@ -17,40 +17,23 @@ $ composer require cethyworks-swagger-tools-bundle
 ### Doctrine Entities Generator
 
 ```sh
-$ app/console swagger:generate:entities swagger.yml HelloApiBundle
+$ app/console swagger:generate:entities swagger.yml HelloApiBundle [--exclude=]
 ```
 
 This command auto-generate doctrine entities based on Swagger file resource definitions.
 
-The resulting entities contains the right `@ORM\` & `@Assert\` (@see Supported Swagger Properties below).
+The resulting entities contains `@ORM\` & `@Assert\` annotations (@see Supported Swagger Properties below).
+
+See `swagger:generate:entities --help` for more details.
 
 #### Id
 
 The id attribute is forced to a guid format & UUID strategy.
 
+
 #### Relations
 
-Since the Swagger specification don't give us the possibility to describe the entity relation (and it's not its work), you can provide a additional yml document path (starting from the swagger document directory) in order to do that. This is the format :
-
-```yml
-entities:
-  Foo: ~ <- no relations
-  Fool: ~
-  Bar:
-    foo: many2one <- Bar many2one unidirectional Foo
-    baz: <- Bar many2one bidirectional Baz
-      type: many2one
-      inversedBy: bars
-  Baz:
-    bars: <- Baz one2many bidirectional Bar
-      type: one2many
-      mappedBy: baz
-```
-
-Currently, the generator care only about the `inversedBy` & `mappedBy` keys, and **does not handle many2many relations**.
-
-
-See `swagger:generate:entities --help` for more details.
+The generator does not support relations.
 
 
 ### Controllers Generator
@@ -87,19 +70,43 @@ See `swagger:generate:access-control --help` for more details.
 
 ### Supported Swagger Properties
 - readOnly
-- required (Assert)
+- required* (Assert)
 - minLength/maxLength (Assert)
 - minimum/maximum (Assert)
 - minItems/maxItems (Assert)
 - enum (Assert)
 - type (Assert)
 - pattern (Assert)
-- format{date\*,date-time\*,email,uuid,url, custom\*} (Assert)
+- format{date\*,date-time\*,email,uuid,url, custom\*}* (Assert)
+- x-parent*
 
-#### Note on format :
+
+#### `required`
+Required is defined as an array & at the root level, eg :
+
+```yml
+definitions:
+  User:
+    type: object
+    required: ['firstName', 'lastName']
+    properties:
+      lastName:
+        type: string
+      firstName:
+        type: string
+      email:
+      	type: string
+```
+
+#### `format`
 Swagger allow any string as format's value, Use it to add your custom Constraints.
 
 example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
+
+
+#### `x-parent`
+Custom swagger property providing the means to declare a parent class to the entity generated.
+
 
 ### Todo
 - Handle one2one relations

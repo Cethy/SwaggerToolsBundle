@@ -20,7 +20,7 @@ format: "AppBundle\Validator\Constraints\MyCustomConstraint"
 - minProperties/maxProperties
 #}
 {# required #}
-{% if property.required is defined and property.required == 'true' %}
+{% if property.required is defined and property.required == true %}
      * @Assert\NotBlank()
 {% endif %}
 {# minLength/maxLength #}

@@ -32,7 +32,6 @@ class GenerateDoctrineEntityCommand extends BaseCommand
             ->setDescription('Auto-generate doctrine entities based on Swagger file resource definitions.')
             ->addArgument('file', InputArgument::REQUIRED, 'File path to the Swagger document')
             ->addArgument('bundle', InputArgument::REQUIRED, 'Name of the bundle you want the classes in')
-            ->addArgument('relation-document', InputArgument::OPTIONAL, 'File path to the optional relation describer document', null)
             ->addOption(
                 'exclude',
                 null,
@@ -63,10 +62,8 @@ class GenerateDoctrineEntityCommand extends BaseCommand
 
         $document = $this->documentRepository->get($input->getArgument('file'));
 
-        $relationDocument  = $this->getRelationDocument($input->getArgument('relation-document'));
-
         $this->generator->setSkeletonDirs(__DIR__ . '/../Resources/skeleton');
-        $this->generator->generate($bundle, $document, $relationDocument, $input->getOption('exclude'), $input->getOption('force'));
+        $this->generator->generate($bundle, $document, $input->getOption('exclude'), $input->getOption('force'));
     }
 
     /**

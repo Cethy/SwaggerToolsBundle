@@ -26,11 +26,11 @@ class EntityGenerator extends BaseGenerator
     /**
      * @param BundleInterface $bundle
      * @param SwaggerDocument $document
-     * @param \stdClass|null  $relationDocument
+     * @param string|null     $parentClass
      * @param array           $definitionsExcluded
      * @param bool            $force
      */
-    public function generate(BundleInterface $bundle, SwaggerDocument $document, $relationDocument = null, $definitionsExcluded = array(), $force = false)
+    public function generate(BundleInterface $bundle, SwaggerDocument $document, $definitionsExcluded = array(), $force = false)
     {
         $dir = $bundle->getPath();
 
@@ -55,23 +55,10 @@ class EntityGenerator extends BaseGenerator
             if(isset($spec->properties)) {
                 foreach($spec->properties as $property => $data) {
                     $properties[$property] = $data;
-                }
-            }
-            // merge $relationDocument
-            if($relationDocument) {
-                foreach($relationDocument['entities'] as $entityName => $relations) {
-                    if($typeName == $entityName && $relations != null) {
-                        foreach($relations as $property => $relation) {
-                            if(!is_array($relation)) {
-                                $relation = array('type' => $relation);
-                            }
 
-                            if(!isset($properties[$property])) {
-                                throw new \Exception(sprintf('%s was not found in %s definition, cannot update relation data', $property, $typeName));
-                            }
-
-                            $properties[$property]->relation = $relation;
-                        }
+                    // add required
+                    if(isset($spec->required) && in_array($property, $spec->required)) {
+                        $properties[$property]->required = true;
                     }
                 }
             }
@@ -81,8 +68,9 @@ class EntityGenerator extends BaseGenerator
                 $resourceFile,
                 array_merge(
                     $parameters, [
-                    'properties' => $properties,
-                    'entityName' => $typeName
+                    'properties'  => $properties,
+                    'entityName'  => $typeName,
+                    'parentClass' => isset($spec->{'x-parent'}) ? $spec->{'x-parent'} : null
                 ])
             );
         }

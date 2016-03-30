@@ -19,7 +19,7 @@ use JMS\Serializer\Annotation\Type;
 {% endblock phpdoc_class_header %}
  */
 {% block class_definition %}
-class {{ entityName }}
+class {{ entityName }}{% if parentClass is defined and parentClass is not null %} extends {{ parentClass }}{% endif %}
 {% endblock class_definition %}
 {
 {% block class_body %}
