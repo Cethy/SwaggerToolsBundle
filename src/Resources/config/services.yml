@@ -9,6 +9,10 @@ services:
   swagger.tools.controller.generator:
     class: Cethyworks\SwaggerToolsBundle\Generator\ControllerGenerator
 
+  swagger.tools.merge_document.generator:
+    class: Cethyworks\SwaggerToolsBundle\Generator\MergeDocumentGenerator
+    arguments: ['%swagger.document.base_path%']
+
   # Commands
   swagger.tools.command.generate_doctrine_entities:
     class: Cethyworks\SwaggerToolsBundle\Command\GenerateDoctrineEntityCommand
@@ -25,5 +29,11 @@ services:
   swagger.tools.command.generate_controller:
     class: Cethyworks\SwaggerToolsBundle\Command\GenerateControllerCommand
     arguments: ['@swagger.document.repository', '@swagger.tools.controller.generator', '%swagger.document.base_path%']
+    tags:
+        -  { name: console.command }
+
+  swagger.tools.command.merge_documents:
+    class: Cethyworks\SwaggerToolsBundle\Command\MergeSwaggerDocumentCommand
+    arguments: ['@swagger.tools.merge_document.generator']
     tags:
         -  { name: console.command }
