@@ -41,6 +41,7 @@ class MergeDocumentGenerator
             'securityDefinitions'   => [],
             'security'              => [],
             'parameters'            => [],
+            'responses'             => [],
             'paths'                 => [],
             'definitions'           => []
         ];
@@ -84,7 +85,17 @@ class MergeDocumentGenerator
                 }
             }
 
-            // parameters
+            // parameters, responses, paths & definitions
+            foreach(['parameters', 'responses', 'paths', 'definitions'] as $key) {
+                if(isset($doc[$key])) {
+                    $merged[$key] = array_merge(
+                        $merged[$key],
+                        $doc[$key]
+                    );
+                }
+            }
+
+            /*// parameters
             if(isset($doc['parameters'])) {
                 $merged['parameters'] = array_merge(
                     $merged['parameters'],
@@ -106,7 +117,7 @@ class MergeDocumentGenerator
                     $merged['definitions'],
                     $doc['definitions']
                 );
-            }
+            }*/
         }
 
         return $merged;
