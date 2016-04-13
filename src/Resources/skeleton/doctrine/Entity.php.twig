@@ -5,6 +5,9 @@ namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Type;
+{% if hasXSerializerExclude %}
+use JMS\Serializer\Annotation\Exclude;
+{% endif %}
 {% endblock use_statements %}
 
 /**

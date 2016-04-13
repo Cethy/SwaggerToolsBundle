@@ -2,6 +2,9 @@
     /**
      * @var {{ type }}
      * @Type("{{ fqType }}")
+{% if attribute(property, 'x-serializer-exclude') is defined and attribute(property, 'x-serializer-exclude') == true %}
+     * @Exclude
+{% endif %}
      *
      * @ORM\Column(name="{{ ormName }}", type="{{ ormType }}"{% if property.required is not defined or not property.required %}, nullable=true{% endif %})
      *

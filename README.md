@@ -81,6 +81,7 @@ See `swagger:generate:access-control --help` for more details.
 - format{date\*,date-time\*,email,uuid,url, custom\*}* (Assert)
 - x-parent*
 - x-exclude*
+- x-serializer-exclude*
 
 #### `required` & `x-required`
 `required` is used by the swagger validator in `KleijnWeb\SwaggerBundle\Test\ApiTestCase`, `x-required` is only used by the generator.
@@ -119,7 +120,8 @@ Custom swagger property providing the means to declare a doctrine repository cla
 #### `x-exclude`
 Custom swagger property ; The generator will ignore definitions with `x-exclude: false`.
 
-
+#### `x-serializer-exclude`
+Custom swagger property ; The generator will set a `@exclude` in the entity for the Serializer.
 
 
 ### Todo

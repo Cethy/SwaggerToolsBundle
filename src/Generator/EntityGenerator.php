@@ -52,6 +52,8 @@ class EntityGenerator extends BaseGenerator
 
             // normalize stdClass $spec into array for twig to be able to use
             $properties = array();
+            // needed to display the use ...\Exclude;
+            $hasXSerializerExclude = false;
             if(isset($spec->properties)) {
                 foreach($spec->properties as $property => $data) {
                     $properties[$property] = $data;
@@ -61,6 +63,10 @@ class EntityGenerator extends BaseGenerator
                         || (isset($spec->{'x-required'}) && in_array($property, $spec->{'x-required'})))
                     {
                         $properties[$property]->required = true;
+                    }
+
+                    if(isset($data->{'x-serializer-exclude'}) && $data->{'x-serializer-exclude'} == true) {
+                        $hasXSerializerExclude = true;
                     }
                 }
             }
@@ -73,7 +79,8 @@ class EntityGenerator extends BaseGenerator
                     'properties'      => $properties,
                     'entityName'      => $typeName,
                     'parentClass'     => isset($spec->{'x-parent'}) ? $spec->{'x-parent'} : null,
-                    'repositoryClass' => isset($spec->{'x-repository'}) ? $spec->{'x-repository'} : null
+                    'repositoryClass' => isset($spec->{'x-repository'}) ? $spec->{'x-repository'} : null,
+                    'hasXSerializerExclude' => $hasXSerializerExclude
                 ])
             );
         }
