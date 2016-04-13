@@ -82,6 +82,7 @@ See `swagger:generate:access-control --help` for more details.
 - x-parent*
 - x-exclude*
 - x-serializer-exclude*
+- x-unique*
 
 #### `required` & `x-required`
 `required` is used by the swagger validator in `KleijnWeb\SwaggerBundle\Test\ApiTestCase`, `x-required` is only used by the generator.
@@ -122,6 +123,9 @@ Custom swagger property ; The generator will ignore definitions with `x-exclude:
 
 #### `x-serializer-exclude`
 Custom swagger property ; The generator will set a `@exclude` in the entity for the Serializer.
+
+#### `x-unique`
+Custom swagger property ; The generator will set this property into `@UniqueEntity`.
 
 
 ### Todo

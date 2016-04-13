@@ -4,6 +4,9 @@ namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 {% block use_statements %}
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+{% if hasXUnique|length > 0 %}
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+{% endif %}
 use JMS\Serializer\Annotation\Type;
 {% if hasXSerializerExclude %}
 use JMS\Serializer\Annotation\Exclude;
@@ -19,6 +22,9 @@ use JMS\Serializer\Annotation\Exclude;
  *
  * @ORM\Table()
  * @ORM\Entity({% if repositoryClass is defined and repositoryClass is not null %}repositoryClass="{{ repositoryClass }}"{% endif %})
+{% for unique in hasXUnique %}
+ * @UniqueEntity(fields="{{ unique }}")
+{% endfor %}
 {% endblock phpdoc_class_header %}
  */
 {% block class_definition %}

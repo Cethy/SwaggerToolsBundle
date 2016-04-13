@@ -54,6 +54,7 @@ class EntityGenerator extends BaseGenerator
             $properties = array();
             // needed to display the use ...\Exclude;
             $hasXSerializerExclude = false;
+            $hasXUnique = [];
             if(isset($spec->properties)) {
                 foreach($spec->properties as $property => $data) {
                     $properties[$property] = $data;
@@ -68,6 +69,11 @@ class EntityGenerator extends BaseGenerator
                     if(isset($data->{'x-serializer-exclude'}) && $data->{'x-serializer-exclude'} == true) {
                         $hasXSerializerExclude = true;
                     }
+
+                    if(isset($data->{'x-unique'}) && $data->{'x-unique'} == true) {
+                        $hasXUnique[] = $property;
+                    }
+
                 }
             }
 
@@ -80,7 +86,8 @@ class EntityGenerator extends BaseGenerator
                     'entityName'      => $typeName,
                     'parentClass'     => isset($spec->{'x-parent'}) ? $spec->{'x-parent'} : null,
                     'repositoryClass' => isset($spec->{'x-repository'}) ? $spec->{'x-repository'} : null,
-                    'hasXSerializerExclude' => $hasXSerializerExclude
+                    'hasXSerializerExclude' => $hasXSerializerExclude,
+                    'hasXUnique'      => $hasXUnique
                 ])
             );
         }
