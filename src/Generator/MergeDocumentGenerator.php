@@ -64,7 +64,6 @@ class MergeDocumentGenerator
 
             // security
             if(isset($doc['security'])) {
-                //var_dump($doc['security']);die;
                 foreach($doc['security'] as $keySec => $security) {
                     if(! isset($merged['security'])) {
                         $merged['security'][$keySec] = $security;

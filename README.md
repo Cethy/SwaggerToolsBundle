@@ -98,18 +98,22 @@ definitions:
     properties:
       id:
         type: string
-      lastName:
-        type: string
       firstName:
         type: string
       email:
       	type: string
+      comment: 
+      	type: string
+      	format: text
 ```
 
 #### `format`
 Swagger allow any string as format's value, Use it to add your custom Constraints.
 
 example : `format: "AppBundle\Validator\Constraints\MyCustomConstraint"`
+
+##### `type: string & format: text`
+The generator recognize type: string w/ format: text as a doctrine type text.
 
 
 #### `x-parent`

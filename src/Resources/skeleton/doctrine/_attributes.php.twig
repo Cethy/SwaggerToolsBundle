@@ -19,6 +19,14 @@
     ormType: 'datetime'
 } %}
 
+{% elseif property.type == 'string' and property.format is defined and property.format == 'text' %}
+{% include 'doctrine/attribute/_attribute.php.twig' with { property: property,
+    type:    property.type,
+    fqType:  property.type,
+    ormName: name,
+    ormType: 'text'
+} %}
+
 {% elseif property.type == 'number' %}
 {% include 'doctrine/attribute/_attribute.php.twig' with { property: property,
     type:    'float',

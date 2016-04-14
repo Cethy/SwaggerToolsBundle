@@ -57,6 +57,8 @@ format: "AppBundle\Validator\Constraints\MyCustomConstraint"
      * @Assert\{{ property.format|capitalize }}()
 {% elseif property.format is defined and property.format == 'date-time' %}
      * @Assert\DateTime()
+{% elseif property.format is defined and property.format == 'text' %}
+     * @Assert\Type(type="{{ property.type }}")
 {% elseif property.format is defined %}
      * @{{ property.format }}()
 {# type #}
